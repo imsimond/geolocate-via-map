@@ -148,11 +148,15 @@ function cftp_geo_save_metaboxes() {
 	if (defined('DOING_AJAX') ) {
 		return $post_id;
 	}
-	$location = array(
-		'name' => $_POST['locationname'],
-		'coords' => $_POST['coords']
-	);
-	update_post_meta($post->ID,'_location', $location);
+	if ( empty($_POST['locationname']) ) {
+		delete_post_meta($post->ID,'_location');	
+	} else {
+		$location = array(
+			'name' => $_POST['locationname'],
+			'coords' => $_POST['coords']
+		);
+		update_post_meta($post->ID,'_location', $location);
+	}
 }
 
 
